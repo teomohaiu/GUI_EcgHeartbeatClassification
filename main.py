@@ -27,15 +27,16 @@ class MyMainWindow(QMainWindow):
         # PAGE 3
         self.ui.btn_page_3.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.page_3))
 
-        ##### PAGE 1 FUNCTIONS ####
+        ##### PAGE 1 FUNCTIONS #####
         self.prediction_page = PredictionPage()
         toolbar = NavigationToolbar(self.prediction_page.sc, self)
         layout = QVBoxLayout()
         layout.addWidget(toolbar)
         layout.addWidget(self.prediction_page.sc)
-
         self.ui.showEcg.setLayout(layout)
         self.ui.predictBtn.clicked.connect(self.prediction_page.predictClick)
+
+        ##### PAGE 2 FUNCTIONS #####
 
     def toggleMenu(self, maxWidth, enable):
         if enable:

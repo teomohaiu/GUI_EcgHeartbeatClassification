@@ -1,15 +1,18 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QSpacerItem, QSizePolicy, QWidget
+from PyQt5.QtCore import QSize, QRect
+from PyQt5.QtGui import QFont
+from PyQt5.QtWidgets import QSpacerItem, QSizePolicy, QWidget, QHBoxLayout, QPushButton, QScrollArea, QVBoxLayout, \
+    QLabel, QFrame
 
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1200, 700)
-        MainWindow.setMinimumSize(QtCore.QSize(1350, 600))
+        MainWindow.resize(1350, 700)
+        MainWindow.setMinimumSize(QtCore.QSize(800, 600))
         qss_file = open('stylesheets/stylesheet.qss').read()
         MainWindow.setStyleSheet(qss_file)
-       # MainWindow.setStyleSheet("background-color: rgb(45, 45, 45);")
+
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.centralwidget)
@@ -113,6 +116,30 @@ class Ui_MainWindow(object):
         self.verticalLayout_7 = QtWidgets.QVBoxLayout(self.page_1)
         self.verticalLayout_7.setObjectName("verticalLayout_7")
 
+        self.horizontalLayout_5 = QHBoxLayout()
+        self.horizontalLayout_5.setObjectName(u"horizontalLayout_5")
+        self.horizontalSpacer_5 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.horizontalLayout_5.addItem(self.horizontalSpacer_5)
+
+        self.uploadFileBtn = QPushButton(self.page_1)
+        self.uploadFileBtn.setObjectName(u"uploadFileBtn")
+        sizePolicy1 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
+        sizePolicy1.setHorizontalStretch(0)
+        sizePolicy1.setVerticalStretch(0)
+        sizePolicy1.setHeightForWidth(self.uploadFileBtn.sizePolicy().hasHeightForWidth())
+        self.uploadFileBtn.setSizePolicy(sizePolicy1)
+        self.uploadFileBtn.setStyleSheet("QPushButton\n"
+            "{\n"
+            "    height: 20px; \n"
+            "    width: 100px; \n"
+            "    min-width: 40px;\n"
+            "}\n")
+
+        self.horizontalLayout_5.addWidget(self.uploadFileBtn)
+
+        self.verticalLayout_7.addLayout(self.horizontalLayout_5)
+
         self.showEcg = QWidget(self.page_1)
         self.showEcg.setObjectName(u"showEcg")
         sizePolicy.setHeightForWidth(self.showEcg.sizePolicy().hasHeightForWidth())
@@ -156,15 +183,64 @@ class Ui_MainWindow(object):
         self.page_2.setObjectName("page_2")
         self.verticalLayout_6 = QtWidgets.QVBoxLayout(self.page_2)
         self.verticalLayout_6.setObjectName("verticalLayout_6")
-        self.label_2 = QtWidgets.QLabel(self.page_2)
-        font = QtGui.QFont()
-        font.setPointSize(40)
-        self.label_2.setFont(font)
-        self.label_2.setStyleSheet("color: #FFF;")
-        self.label_2.setAlignment(QtCore.Qt.AlignCenter)
-        self.label_2.setObjectName("label_2")
-        self.verticalLayout_6.addWidget(self.label_2)
+
+        self.scrollArea = QScrollArea(self.page_2)
+        self.scrollArea.setObjectName(u"scrollArea")
+        self.scrollArea.setFrameShape(QFrame.NoFrame)
+        self.scrollArea.setWidgetResizable(True)
+        self.scrollAreaWidgetContents = QWidget()
+        self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 1076, 1000))
+        sizePolicy2 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
+        sizePolicy2.setHorizontalStretch(0)
+        sizePolicy2.setVerticalStretch(0)
+        sizePolicy2.setHeightForWidth(self.scrollAreaWidgetContents.sizePolicy().hasHeightForWidth())
+        self.scrollAreaWidgetContents.setSizePolicy(sizePolicy2)
+        self.scrollAreaWidgetContents.setMinimumSize(QSize(0, 1000))
+        self.verticalLayout_11 = QVBoxLayout(self.scrollAreaWidgetContents)
+        self.verticalLayout_11.setObjectName(u"verticalLayout_11")
+        self.textLabelClass = QLabel(self.scrollAreaWidgetContents)
+        self.textLabelClass.setObjectName(u"textLabelClass")
+        sizePolicy2.setHeightForWidth(self.textLabelClass.sizePolicy().hasHeightForWidth())
+        self.textLabelClass.setSizePolicy(sizePolicy2)
+        self.textLabelClass.setMinimumSize(QSize(0, 10))
+        font = QFont()
+        font.setFamily(u"Bahnschrift Light Condensed")
+        font.setPointSize(18)
+        self.textLabelClass.setFont(font)
+        self.textLabelClass.setAutoFillBackground(False)
+
+        self.verticalLayout_11.addWidget(self.textLabelClass)
+
+        self.widgetClass = QWidget(self.scrollAreaWidgetContents)
+        self.widgetClass.setObjectName(u"widgetClass")
+
+        self.verticalLayout_11.addWidget(self.widgetClass)
+
+        self.textLabelSMOTE = QLabel(self.scrollAreaWidgetContents)
+        self.textLabelSMOTE.setObjectName(u"textLabelSMOTE")
+        sizePolicy2.setHeightForWidth(self.textLabelSMOTE.sizePolicy().hasHeightForWidth())
+        self.textLabelSMOTE.setSizePolicy(sizePolicy2)
+        self.textLabelSMOTE.setMinimumSize(QSize(10, 0))
+        self.textLabelSMOTE.setFont(font)
+        self.textLabelSMOTE.setStyleSheet(u"QLabel: {\n"
+                                          "	\n"
+                                          "	color: rgb(255, 255, 255);\n"
+                                          "}")
+
+        self.verticalLayout_11.addWidget(self.textLabelSMOTE)
+
+        self.widgetSMOTE = QWidget(self.scrollAreaWidgetContents)
+        self.widgetSMOTE.setObjectName(u"widgetSMOTE")
+
+        self.verticalLayout_11.addWidget(self.widgetSMOTE)
+
+        self.scrollArea.setWidget(self.scrollAreaWidgetContents)
+
+        self.verticalLayout_6.addWidget(self.scrollArea)
         self.stackedWidget.addWidget(self.page_2)
+
+
         self.page_3 = QtWidgets.QWidget()
         self.page_3.setObjectName("page_3")
         self.verticalLayout_8 = QtWidgets.QVBoxLayout(self.page_3)
@@ -195,5 +271,8 @@ class Ui_MainWindow(object):
         self.btn_page_2.setText(_translate("MainWindow", "DATASET "))
         self.btn_page_3.setText(_translate("MainWindow", "STATISTICS"))
         self.predictBtn.setText(_translate("MainWindow", "PREDICT"))
-        self.label_2.setText(_translate("MainWindow", "PAGE 2"))
+        self.uploadFileBtn.setText(_translate("MainWindow", "Upload file"))
+        self.textLabelClass.setText(_translate("MainWindow", u"Class representation", None))
+        self.textLabelSMOTE.setText(_translate("MainWindow", u"SMOTE generated examples", None))
+
         self.label.setText(_translate("MainWindow", "PAGE 3"))

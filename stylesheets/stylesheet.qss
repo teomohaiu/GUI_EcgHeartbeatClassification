@@ -176,98 +176,91 @@ QTextEdit:focus
     border: 1px solid darkgray;
 }
 
+ QScrollBar:vertical {
+	border: none;
+    background: rgb(0,0,0);
+    width: 14px;
+    margin: 15px 0 15px 0;
+	border-radius: 0px;
+ }
+
+/*  HANDLE BAR VERTICAL */
+QScrollBar::handle:vertical {
+	background-color: rgb(0,179,179);
+	min-height: 30px;
+	border-radius: 7px;
+}
+QScrollBar::handle:vertical:hover{
+	background-color:rgb(0,205,205);
+}
+QScrollBar::handle:vertical:pressed {
+	background-color: rgb(0,128,128)
+}
+
+
+QScrollBar::sub-line:vertical {
+	border: none;
+	background-color: rgb(59, 59, 90);
+	height: 15px;
+	border-top-left-radius: 7px;
+	border-top-right-radius: 7px;
+	subcontrol-position: top;
+	subcontrol-origin: margin;
+}
+QScrollBar::sub-line:vertical:hover {
+	background-color: rgb(0,179,179);
+}
+QScrollBar::sub-line:vertical:pressed {
+	background-color: rgb(0,179,179);
+}
+
+/* BTN BOTTOM - SCROLLBAR */
+QScrollBar::add-line:vertical {
+	border: none;
+	background-color: rgb(59, 59, 90);
+	height: 15px;
+	border-bottom-left-radius: 7px;
+	border-bottom-right-radius: 7px;
+	subcontrol-position: bottom;
+	subcontrol-origin: margin;
+}
+QScrollBar::add-line:vertical:hover {
+	background-color: rgb(0,179,179);
+}
+QScrollBar::add-line:vertical:pressed {
+	background-color: rgb(0,179,179);
+}
+
+/* RESET ARROW */
+QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical {
+	background: none;
+}
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+	background: none;
+}
+
+
+
+/* HORIZONTAL SCROLLBAR - HOMEWORK */
 QScrollBar:horizontal {
-     border: 1px solid #222222;
-     background: qlineargradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0.0 #121212, stop: 0.2 #282828, stop: 1 #484848);
-     height: 7px;
-     margin: 0px 16px 0 16px;
-}
 
-QScrollBar::handle:horizontal
-{
-      background: qlineargradient( x1: 0, y1: 0, x2: 1, y2: 0, stop: 0 #ffa02f, stop: 0.5 #d7801a, stop: 1 #ffa02f);
-      min-height: 20px;
-      border-radius: 2px;
 }
+QScrollBar::handle:horizontal {
 
+}
 QScrollBar::add-line:horizontal {
-      border: 1px solid #1b1b19;
-      border-radius: 2px;
-      background: qlineargradient( x1: 0, y1: 0, x2: 1, y2: 0, stop: 0 #ffa02f, stop: 1 #d7801a);
-      width: 14px;
-      subcontrol-position: right;
-      subcontrol-origin: margin;
-}
 
+}
 QScrollBar::sub-line:horizontal {
-      border: 1px solid #1b1b19;
-      border-radius: 2px;
-      background: qlineargradient( x1: 0, y1: 0, x2: 1, y2: 0, stop: 0 #ffa02f, stop: 1 #d7801a);
-      width: 14px;
-     subcontrol-position: left;
-     subcontrol-origin: margin;
-}
 
-QScrollBar::right-arrow:horizontal, QScrollBar::left-arrow:horizontal
+}
+QScrollBar::up-arrow:horizontal, QScrollBar::down-arrow:horizontal
 {
-      border: 1px solid black;
-      width: 1px;
-      height: 1px;
-      background: white;
-}
 
+}
 QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal
 {
-      background: none;
-}
 
-QScrollBar:vertical
-{
-      background: qlineargradient( x1: 0, y1: 0, x2: 1, y2: 0, stop: 0.0 #121212, stop: 0.2 #282828, stop: 1 #484848);
-      width: 7px;
-      margin: 16px 0 16px 0;
-      border: 1px solid #222222;
-}
-
-QScrollBar::handle:vertical
-{
-      background: qlineargradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #ffa02f, stop: 0.5 #d7801a, stop: 1 #ffa02f);
-      min-height: 20px;
-      border-radius: 2px;
-}
-
-QScrollBar::add-line:vertical
-{
-      border: 1px solid #1b1b19;
-      border-radius: 2px;
-      background: qlineargradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #ffa02f, stop: 1 #d7801a);
-      height: 14px;
-      subcontrol-position: bottom;
-      subcontrol-origin: margin;
-}
-
-QScrollBar::sub-line:vertical
-{
-      border: 1px solid #1b1b19;
-      border-radius: 2px;
-      background: qlineargradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #d7801a, stop: 1 #ffa02f);
-      height: 14px;
-      subcontrol-position: top;
-      subcontrol-origin: margin;
-}
-
-QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical
-{
-      border: 1px solid black;
-      width: 1px;
-      height: 1px;
-      background: white;
-}
-
-
-QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical
-{
-      background: none;
 }
 
 QTextEdit
