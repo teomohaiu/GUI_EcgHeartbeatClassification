@@ -206,7 +206,7 @@ class Ui_MainWindow(object):
         self.textLabelClass.setMinimumSize(QSize(0, 10))
         font = QFont()
         font.setFamily(u"Bahnschrift Light Condensed")
-        font.setPointSize(18)
+        font.setPointSize(16)
         self.textLabelClass.setFont(font)
         self.textLabelClass.setAutoFillBackground(False)
 
