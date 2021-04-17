@@ -5,7 +5,8 @@ from PyQt5.QtCore import QPropertyAnimation
 from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout
 from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
 
-from UiFunctions.PredictionPage import PredictionPage
+from UiFunctions.PredictionPage import Prediction
+from UiFunctions.DatasetPage import Dataset
 from ui_modified import Ui_MainWindow
 
 
@@ -28,7 +29,7 @@ class MyMainWindow(QMainWindow):
         self.ui.btn_page_3.clicked.connect(lambda: self.ui.stackedWidget.setCurrentWidget(self.ui.page_3))
 
         ##### PAGE 1 FUNCTIONS #####
-        self.prediction_page = PredictionPage()
+        self.prediction_page = Prediction()
         toolbar = NavigationToolbar(self.prediction_page.sc, self)
         layout = QVBoxLayout()
         layout.addWidget(toolbar)
@@ -37,6 +38,10 @@ class MyMainWindow(QMainWindow):
         self.ui.predictBtn.clicked.connect(self.prediction_page.predictClick)
 
         ##### PAGE 2 FUNCTIONS #####
+        self.dataset_page = Dataset()
+        layoutDataDistribution= QVBoxLayout()
+        layoutDataDistribution.addWidget(self.dataset_page.sc)
+        self.ui.widgetClass.setLayout(layoutDataDistribution)
 
     def toggleMenu(self, maxWidth, enable):
         if enable:
