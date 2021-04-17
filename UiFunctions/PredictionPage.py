@@ -5,7 +5,7 @@ from Canvas import MplCanvas
 from KerasModel import Model
 
 
-class PredictionPage:
+class Prediction:
     def __init__(self):
         self.isPredicted = False
         self.keras_model = Model()
