@@ -39,7 +39,9 @@ class MyMainWindow(QMainWindow):
 
         ##### PAGE 2 FUNCTIONS #####
         self.dataset_page = Dataset()
-        layoutDataDistribution= QVBoxLayout()
+        toolbar2 = NavigationToolbar(self.dataset_page.sc, self)
+        layoutDataDistribution = QVBoxLayout()
+        layoutDataDistribution.addWidget(toolbar2)
         layoutDataDistribution.addWidget(self.dataset_page.sc)
         self.ui.widgetClass.setLayout(layoutDataDistribution)
 
