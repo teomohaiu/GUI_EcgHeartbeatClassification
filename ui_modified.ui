@@ -423,9 +423,12 @@ QPushButton:hover {
               <item>
                <widget class="QScrollArea" name="scrollArea">
                 <property name="styleSheet">
-                 <string notr="true"> QScrollBar:vertical {
+                 <string notr="true">
+
+
+ QScrollBar:vertical {
 	border: none;
-    background: rgb(45, 45, 68);
+    background: rgb(0,0,0);
     width: 14px;
     margin: 15px 0 15px 0;
 	border-radius: 0px;
@@ -518,7 +521,7 @@ QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>1076</width>
+                   <width>1069</width>
                    <height>1000</height>
                   </rect>
                  </property>
@@ -570,6 +573,9 @@ QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal
                   </item>
                   <item>
                    <widget class="QWidget" name="widgetClass" native="true"/>
+                  </item>
+                  <item>
+                   <widget class="QWidget" name="widgetViewClasses" native="true"/>
                   </item>
                   <item>
                    <widget class="QLabel" name="textLabelSMOTE">

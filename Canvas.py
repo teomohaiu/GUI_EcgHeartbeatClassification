@@ -24,8 +24,17 @@ class MultipleSubplotsCanvas(FigureCanvas):
         super(MultipleSubplotsCanvas, self).__init__(fig)
 
 
+class AllClassesCanvas(FigureCanvas):
+    def __init__(self, parent=None, width=5, height=4, dpi=100):
+        fig = Figure(figsize=(width, height), dpi=dpi)
+        fig.tight_layout()
+        fig.patch.set_facecolor("black")
+        super(AllClassesCanvas,self).__init__(fig)
+
+
+
+
 class SeabornCanvas(FigureCanvas):
     def __init__(self, parent=None, width=5, height=4, dpi=100):
         fig, self.ax = plt.subplots(figsize=(width, height))
         super(SeabornCanvas, self).__init__(fig)
-

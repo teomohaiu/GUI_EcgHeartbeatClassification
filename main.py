@@ -39,11 +39,15 @@ class MyMainWindow(QMainWindow):
 
         ##### PAGE 2 FUNCTIONS #####
         self.dataset_page = Dataset()
-        toolbar2 = NavigationToolbar(self.dataset_page.sc, self)
+
         layoutDataDistribution = QVBoxLayout()
-        layoutDataDistribution.addWidget(toolbar2)
+
         layoutDataDistribution.addWidget(self.dataset_page.sc)
         self.ui.widgetClass.setLayout(layoutDataDistribution)
+
+        layoutClassExamples = QVBoxLayout()
+        layoutClassExamples.addWidget(self.dataset_page.classes_plot)
+        self.ui.widgetViewClasses.setLayout(layoutClassExamples)
 
     def toggleMenu(self, maxWidth, enable):
         if enable:

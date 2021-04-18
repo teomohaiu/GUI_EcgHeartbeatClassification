@@ -196,7 +196,7 @@ class Ui_MainWindow(object):
         sizePolicy2.setVerticalStretch(0)
         sizePolicy2.setHeightForWidth(self.scrollAreaWidgetContents.sizePolicy().hasHeightForWidth())
         self.scrollAreaWidgetContents.setSizePolicy(sizePolicy2)
-        self.scrollAreaWidgetContents.setMinimumSize(QSize(0, 1000))
+        self.scrollAreaWidgetContents.setMinimumSize(QSize(0, 1500))
         self.verticalLayout_11 = QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout_11.setObjectName(u"verticalLayout_11")
         self.textLabelClass = QLabel(self.scrollAreaWidgetContents)
@@ -216,6 +216,11 @@ class Ui_MainWindow(object):
         self.widgetClass.setObjectName(u"widgetClass")
 
         self.verticalLayout_11.addWidget(self.widgetClass)
+
+        self.widgetViewClasses = QWidget(self.scrollAreaWidgetContents)
+        self.widgetViewClasses.setObjectName(u"widgetViewClasses")
+
+        self.verticalLayout_11.addWidget(self.widgetViewClasses)
 
         self.textLabelSMOTE = QLabel(self.scrollAreaWidgetContents)
         self.textLabelSMOTE.setObjectName(u"textLabelSMOTE")

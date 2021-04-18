@@ -1,12 +1,13 @@
 import numpy as np
 import pandas as pd
-from Canvas import MultipleSubplotsCanvas, SeabornCanvas
+from Canvas import MultipleSubplotsCanvas, SeabornCanvas, AllClassesCanvas
 import seaborn as sns
 
 
 class Dataset:
     def __init__(self):
         self.sc = self.plot_imbalanced_classes()
+        self.classes_plot = self.plot_class_examples()
         # self.sc = self.example_seaborn()
 
     def plot_imbalanced_classes(self):
@@ -39,6 +40,27 @@ class Dataset:
         lines, _ = sc.figure.axes[-1].get_legend_handles_labels()
         sc.figure.legend(lines, legend_labels, loc='upper right', bbox_to_anchor=(1, 0.8), prop={'size': 8})
         sc.figure.subplots_adjust(top=0.88, bottom=0.145, left=0.11, right=0.76, hspace=0.2, wspace=0.2)
+
+        return sc
+
+    def plot_class_examples(self):
+        examples = np.load('SerializedObjects/class_samples/examples.npy')
+        class_names = np.load('SerializedObjects/full_class_names.npy')
+        colors = sns.color_palette("plasma", n_colors=15)
+        num_rows = 3
+        num_columns = 5
+        sc = AllClassesCanvas(self, 7, 5)
+        for i in range(num_rows * num_columns):
+            ax = sc.figure.add_subplot(num_rows, num_columns, i + 1)
+            ax.grid(False)
+            ax.plot(examples[i], color=colors[i])
+            ax.set_xlabel(class_names[i], color='white', fontsize=9)
+            ax.xaxis.set_label_coords(0.5, -0.025)
+            # ax.set(facecolor='black')
+            ax.set_xticks([])
+            ax.set_yticks([])
+        sc.figure.subplots_adjust(left=0.03, right=0.97)
+
 
         return sc
 
