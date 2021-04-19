@@ -84,7 +84,7 @@ class Dataset:
             ax.set(facecolor='black')
             ax.plot(X_example[i + 6], linewidth=0.8, color=color)
             ax.xaxis.set_label_coords(0.5, -0.025)
-            ax.set_xlabel(x_label, color=color, fontsize=12)
+            ax.set_xlabel(x_label, color=color, fontsize=10)
 
         sc.figure.suptitle('Premature Ventricular Contraction Samples', fontsize=12, color='white')
 
