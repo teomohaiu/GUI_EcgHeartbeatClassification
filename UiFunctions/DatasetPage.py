@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-from Canvas import MultipleSubplotsCanvas, SeabornCanvas, AllClassesCanvas
+from Canvas import MultipleSubplotsCanvas, SeabornCanvas, AllClassesCanvas, GeneratedSamplesCanvas
 import seaborn as sns
 
 
@@ -8,6 +8,7 @@ class Dataset:
     def __init__(self):
         self.sc = self.plot_imbalanced_classes()
         self.classes_plot = self.plot_class_examples()
+        self.generated_plot = self.plot_generated_samples()
         # self.sc = self.example_seaborn()
 
     def plot_imbalanced_classes(self):
@@ -56,11 +57,36 @@ class Dataset:
             ax.plot(examples[i], color=colors[i])
             ax.set_xlabel(class_names[i], color='white', fontsize=9)
             ax.xaxis.set_label_coords(0.5, -0.025)
+            # ax.set(facecolor='#333333')
             # ax.set(facecolor='black')
+            '''
+            ax.spines["bottom"].set_color("white")
+            ax.spines["left"].set_color("white")
+            ax.spines["right"].set_color("white")
+            ax.spines["top"].set_color("white")
+            '''
             ax.set_xticks([])
             ax.set_yticks([])
+
         sc.figure.subplots_adjust(left=0.03, right=0.97)
 
+        return sc
+
+    def plot_generated_samples(self):
+        X_example = np.load('SerializedObjects/generated_samples/generated_samples_example.npy')
+        sc = GeneratedSamplesCanvas(self, 7, 5, dpi=120)
+        for i, ax in enumerate(sc.figure.axes):
+            x_label = 'Real'
+            color = 'darkorange'
+            if i in range(4, 6):
+                color = 'red'
+                x_label = 'Generated'
+            ax.set(facecolor='black')
+            ax.plot(X_example[i + 6], linewidth=0.8, color=color)
+            ax.xaxis.set_label_coords(0.5, -0.025)
+            ax.set_xlabel(x_label, color=color, fontsize=12)
+
+        sc.figure.suptitle('Premature Ventricular Contraction Samples', fontsize=12, color='white')
 
         return sc
 

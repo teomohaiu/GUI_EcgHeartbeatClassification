@@ -49,6 +49,11 @@ class MyMainWindow(QMainWindow):
         layoutClassExamples.addWidget(self.dataset_page.classes_plot)
         self.ui.widgetViewClasses.setLayout(layoutClassExamples)
 
+        layoutGeneratedSamples = QVBoxLayout()
+        layoutGeneratedSamples.addWidget(self.dataset_page.generated_plot)
+        self.ui.widgetSMOTE.setLayout(layoutGeneratedSamples)
+
+
     def toggleMenu(self, maxWidth, enable):
         if enable:
 
