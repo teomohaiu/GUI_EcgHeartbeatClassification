@@ -2,7 +2,7 @@ import sys
 
 from PyQt5 import QtCore, QtGui
 from PyQt5.QtCore import QPropertyAnimation
-from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QDialog
+from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QDialog, QFileDialog
 from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
 
 from UiFunctions.PredictionPage import Prediction
@@ -18,6 +18,9 @@ class MyMainWindow(QMainWindow):
 
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+        self.Dialog = QDialog()
+        self.ui_di = Ui_Dialog()
+        self.ui_di.setupUi(self.Dialog)
 
         self.ui.Btn_Toggle.clicked.connect(lambda: self.toggleMenu(250, True))
         # PAGE 1
@@ -39,6 +42,10 @@ class MyMainWindow(QMainWindow):
         self.ui.predictBtn.clicked.connect(self.prediction_page.predictClick)
         self.ui.uploadFileBtn.clicked.connect(self.uploadFileClick)
 
+        #### Upload file dialog functions ####
+        self.ui_di.browseFileButton.clicked.connect(self.browseFileClick)
+        self.ui_di.browseAnnotationButton.clicked.connect(self.browseAnnotationClick)
+
         ##### PAGE 2 FUNCTIONS #####
         self.dataset_page = Dataset()
         layoutDataDistribution = QVBoxLayout()
@@ -51,12 +58,27 @@ class MyMainWindow(QMainWindow):
         layoutGeneratedSamples.addWidget(self.dataset_page.generated_plot)
         self.ui.widgetSMOTE.setLayout(layoutGeneratedSamples)
 
+    def browseAnnotationClick(self):
+        filename, _ = QFileDialog.getOpenFileName(None, "Browse for annotations", "", "Text files (*.txt);; ATR Files "
+                                                                                      "(*.atr)")
+        if filename:
+            print(filename)
+            self.ui_di.textEdit_2.setText(filename)
+
+    def browseFileClick(self):
+        filename, _ = QFileDialog.getOpenFileName(None, "Browse for ecg files", "", "Text files (*.txt);; Data files "
+                                                                                    "(*.dat)")
+        if filename:
+            print(filename)
+            self.ui_di.textEdit.setText(filename)
+
     def uploadFileClick(self):
-        Dialog = QDialog()
-        ui_di = Ui_Dialog()
-        ui_di.setupUi(Dialog)
-        Dialog.show()
-        Dialog.exec_()
+        self.Dialog.show()
+        dialog_response = self.Dialog.exec_()
+        if dialog_response == QDialog.Accepted:
+            print('OK WAS PRESSED')
+        else:
+            print("Cancel was pressed")
 
     def toggleMenu(self, maxWidth, enable):
         if enable:
