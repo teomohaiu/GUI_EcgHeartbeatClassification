@@ -2,12 +2,13 @@ import sys
 
 from PyQt5 import QtCore, QtGui
 from PyQt5.QtCore import QPropertyAnimation
-from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout
+from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QDialog
 from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
 
 from UiFunctions.PredictionPage import Prediction
 from UiFunctions.DatasetPage import Dataset
 from ui_modified import Ui_MainWindow
+from ui_dialog import Ui_Dialog
 
 
 class MyMainWindow(QMainWindow):
@@ -36,23 +37,26 @@ class MyMainWindow(QMainWindow):
         layout.addWidget(self.prediction_page.sc)
         self.ui.showEcg.setLayout(layout)
         self.ui.predictBtn.clicked.connect(self.prediction_page.predictClick)
+        self.ui.uploadFileBtn.clicked.connect(self.uploadFileClick)
 
         ##### PAGE 2 FUNCTIONS #####
         self.dataset_page = Dataset()
-
         layoutDataDistribution = QVBoxLayout()
-
         layoutDataDistribution.addWidget(self.dataset_page.sc)
         self.ui.widgetClass.setLayout(layoutDataDistribution)
-
         layoutClassExamples = QVBoxLayout()
         layoutClassExamples.addWidget(self.dataset_page.classes_plot)
         self.ui.widgetViewClasses.setLayout(layoutClassExamples)
-
         layoutGeneratedSamples = QVBoxLayout()
         layoutGeneratedSamples.addWidget(self.dataset_page.generated_plot)
         self.ui.widgetSMOTE.setLayout(layoutGeneratedSamples)
 
+    def uploadFileClick(self):
+        Dialog = QDialog()
+        ui_di = Ui_Dialog()
+        ui_di.setupUi(Dialog)
+        Dialog.show()
+        Dialog.exec_()
 
     def toggleMenu(self, maxWidth, enable):
         if enable:
