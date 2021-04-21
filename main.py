@@ -46,7 +46,7 @@ class MyMainWindow(QMainWindow):
         self.ui.showEcg.setLayout(layout)
         self.ui.predictBtn.clicked.connect(self.prediction_page.predictClick)
         self.ui.uploadFileBtn.clicked.connect(self.uploadFileClick)
-        #self.ui.uploadFileBtn.clicked.connect(self.redraw)
+
 
         #### Upload file dialog functions ####
         self.ui_di.browseFileButton.clicked.connect(self.browseFileClick)
@@ -78,11 +78,6 @@ class MyMainWindow(QMainWindow):
             print(self.uploadedRecord)
             self.ui_di.textEdit.setText(self.uploadedRecord)
 
-    def redraw(self):
-        self.prediction_page.sc.axes.clear()
-        self.prediction_page.sc.axes.plot(np.arange(0,10))
-        self.prediction_page.sc.draw()
-
     def uploadFileClick(self):
         self.Dialog.show()
         dialog_response = self.Dialog.exec_()
@@ -101,7 +96,6 @@ class MyMainWindow(QMainWindow):
                     self.prediction_page.sc.draw()
                 except AttributeError as e:
                     print(e)
-
 
         else:
             print("Cancel was pressed")
