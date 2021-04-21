@@ -6,9 +6,13 @@ from KerasModel import Model
 
 
 class Prediction:
-    def __init__(self):
+    def __init__(self, record_file='C:/Users/Teo/Desktop/Licenta/mit-bih-arrhythmia-database-1.0.0/100'
+                 , annotation_file='C:/Users/Teo/Desktop/Licenta/mit-bih-arrhythmia-database-1.0.0/100'):
         self.isPredicted = False
         self.keras_model = Model()
+
+        self.keras_model.read_signal(record_file, annotation_file)
+        self.keras_model.preprocess()
         self.sc = self.plot_ecg(self.keras_model.signal)
 
     def plot_ecg(self, signal):
@@ -36,7 +40,8 @@ class Prediction:
             self.sc.axes.axvspan(self.keras_model.sequence_start[i], self.keras_model.sequence_end[i], color=c,
                                  alpha=0.2)
 
-            self.sc.axes.text(self.keras_model.beat_location[i], 1.1,
+            _, y_max = self.sc.axes.get_ylim()
+            self.sc.axes.text(self.keras_model.beat_location[i], y_max,
                               "{} \n ({}%)".format(predicted_classes[i], probabilities[i]),
                               horizontalalignment='center',
                               color='white',

@@ -20,19 +20,27 @@ class Model:
         self.annotation_symbols = list()
         self.beat_location = list()
         self.class_names = ['Normal beat', 'Left Bundle\nBranch Block', 'Right Bundle\nBranch Block', 'Atrial Escape',
-                            'Nodal (junctional)\nEscape', 'Atrial premature\ncontraction', 'Abberated atrial\npremature',
+                            'Nodal (junctional)\nEscape', 'Atrial premature\ncontraction',
+                            'Abberated atrial\npremature',
                             'Blocked atrial\npremature', 'Nodal (junctional)\npremature',
                             'Premature\nventricular\ncontraction', 'Ventricular Escape', 'Ventricular flutter \nwave',
                             'Fusion of ventricular\nand normal', 'Fusion of\npaced and\nnormal', 'Unknown beats']
         self.sequence_start = list()
         self.sequence_end = list()
-        self.read_signal()
-        self.preprocess()
+        # self.read_signal()
+        # self.preprocess()
 
-    def read_signal(self):
-        record = wfdb.rdrecord('C:/Users/Teo/Desktop/Licenta/mit-bih-arrhythmia-database-1.0.0/100', sampto=2200)
-        annotation = wfdb.rdann('C:/Users/Teo/Desktop/Licenta/mit-bih-arrhythmia-database-1.0.0/100', 'atr',
-                                sampto=2200)
+    def read_signal(self, record_file, annotation_file):
+        if type(self.X_test) is np.ndarray:
+            self.X_test = list()
+            self.y_class= list()
+            self.y_category= list()
+            self.sequence_start= list()
+            self.sequence_end= list()
+            self.beat_location= list()
+
+        record = wfdb.rdrecord(record_file, sampto=2200)
+        annotation = wfdb.rdann(annotation_file, 'atr', sampto=2200)
         ecg_signal = record.p_signal
         self.signal = ecg_signal[:, 0]
         self.annotation_sample = annotation.sample
@@ -59,6 +67,7 @@ class Model:
             print(sample.shape)
         for i in range(len(self.sequence_start)):
             print('start: {}, end:{}'.format(self.sequence_start[i], self.sequence_end[i]))
+        print('Signal: ', self.signal)
 
     def preprocess(self):
         self.X_test = tf.keras.preprocessing.sequence.pad_sequences(
@@ -75,7 +84,7 @@ class Model:
         predicted_labels = np.argmax(predictions, axis=-1)
         print('Predicted labels:', predicted_labels)
 
-        predicted_classes, probabilities= self.showPredictionsPercentages(predicted_labels, predictions)
+        predicted_classes, probabilities = self.showPredictionsPercentages(predicted_labels, predictions)
         return predicted_classes, probabilities
 
     def showPredictionsPercentages(self, predicted_labels, predictions_array):

@@ -1,10 +1,13 @@
 import sys
+import os
+import numpy as np
 
 from PyQt5 import QtCore, QtGui
 from PyQt5.QtCore import QPropertyAnimation
 from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QDialog, QFileDialog
 from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
 
+from KerasModel import Model
 from UiFunctions.PredictionPage import Prediction
 from UiFunctions.DatasetPage import Dataset
 from ui_modified import Ui_MainWindow
@@ -15,6 +18,8 @@ class MyMainWindow(QMainWindow):
     def __init__(self):
         super(MyMainWindow, self).__init__()
         self.animation = None
+        self.uploadedRecord = None
+        self.uploadedAnnotation = None
 
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
@@ -41,6 +46,7 @@ class MyMainWindow(QMainWindow):
         self.ui.showEcg.setLayout(layout)
         self.ui.predictBtn.clicked.connect(self.prediction_page.predictClick)
         self.ui.uploadFileBtn.clicked.connect(self.uploadFileClick)
+        #self.ui.uploadFileBtn.clicked.connect(self.redraw)
 
         #### Upload file dialog functions ####
         self.ui_di.browseFileButton.clicked.connect(self.browseFileClick)
@@ -59,24 +65,44 @@ class MyMainWindow(QMainWindow):
         self.ui.widgetSMOTE.setLayout(layoutGeneratedSamples)
 
     def browseAnnotationClick(self):
-        filename, _ = QFileDialog.getOpenFileName(None, "Browse for annotations", "", "Text files (*.txt);; ATR Files "
-                                                                                      "(*.atr)")
-        if filename:
-            print(filename)
-            self.ui_di.textEdit_2.setText(filename)
+        self.uploadedAnnotation, _ = QFileDialog.getOpenFileName(None, "Browse for annotations", "",
+                                                                 " ATR Files (*.atr);;Text files (*.txt)")
+        if self.uploadedAnnotation:
+            print(self.uploadedAnnotation)
+            self.ui_di.textEdit_2.setText(self.uploadedAnnotation)
 
     def browseFileClick(self):
-        filename, _ = QFileDialog.getOpenFileName(None, "Browse for ecg files", "", "Text files (*.txt);; Data files "
-                                                                                    "(*.dat)")
-        if filename:
-            print(filename)
-            self.ui_di.textEdit.setText(filename)
+        self.uploadedRecord, _ = QFileDialog.getOpenFileName(None, "Browse for ecg files", "", "Data files(*.dat);; "
+                                                                                               "Text files (*.txt)")
+        if self.uploadedRecord:
+            print(self.uploadedRecord)
+            self.ui_di.textEdit.setText(self.uploadedRecord)
+
+    def redraw(self):
+        self.prediction_page.sc.axes.clear()
+        self.prediction_page.sc.axes.plot(np.arange(0,10))
+        self.prediction_page.sc.draw()
 
     def uploadFileClick(self):
         self.Dialog.show()
         dialog_response = self.Dialog.exec_()
         if dialog_response == QDialog.Accepted:
             print('OK WAS PRESSED')
+            if self.uploadedRecord.endswith('.dat') and self.uploadedAnnotation.endswith('.atr'):
+                record = os.path.splitext(self.uploadedRecord)[0]
+                annotation = os.path.splitext(self.uploadedAnnotation)[0]
+
+                try:
+                    self.prediction_page.keras_model.read_signal(record, annotation)
+                    self.prediction_page.keras_model.preprocess()
+                    self.prediction_page.sc.axes.clear()
+                    print('Signal from main:', self.prediction_page.keras_model.signal)
+                    self.prediction_page.sc.axes.plot(self.prediction_page.keras_model.signal)
+                    self.prediction_page.sc.draw()
+                except AttributeError as e:
+                    print(e)
+
+
         else:
             print("Cancel was pressed")
 
