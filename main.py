@@ -10,6 +10,7 @@ from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as Navigatio
 from KerasModel import Model
 from UiFunctions.PredictionPage import Prediction
 from UiFunctions.DatasetPage import Dataset
+from UiFunctions.StatisticsPage import Statistics
 from ui_modified import Ui_MainWindow
 from ui_dialog import Ui_Dialog
 
@@ -47,7 +48,6 @@ class MyMainWindow(QMainWindow):
         self.ui.predictBtn.clicked.connect(self.prediction_page.predictClick)
         self.ui.uploadFileBtn.clicked.connect(self.uploadFileClick)
 
-
         #### Upload file dialog functions ####
         self.ui_di.browseFileButton.clicked.connect(self.browseFileClick)
         self.ui_di.browseAnnotationButton.clicked.connect(self.browseAnnotationClick)
@@ -63,6 +63,12 @@ class MyMainWindow(QMainWindow):
         layoutGeneratedSamples = QVBoxLayout()
         layoutGeneratedSamples.addWidget(self.dataset_page.generated_plot)
         self.ui.widgetSMOTE.setLayout(layoutGeneratedSamples)
+
+        #### PAGE 3 FUNCTIONS ####
+        statisticsPage = Statistics()
+        layoutStatistics = QVBoxLayout()
+        layoutStatistics.addWidget(statisticsPage.sc)
+        self.ui.widgetStatistics.setLayout(layoutStatistics)
 
     def browseAnnotationClick(self):
         self.uploadedAnnotation, _ = QFileDialog.getOpenFileName(None, "Browse for annotations", "",
