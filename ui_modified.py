@@ -257,13 +257,38 @@ class Ui_MainWindow(object):
         self.scrollArea_2.setWidgetResizable(True)
         self.scrollAreaWidgetContents_2 = QWidget()
         self.scrollAreaWidgetContents_2.setObjectName(u"scrollAreaWidgetContents_2")
-        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, 0, 1069, 1000))
+        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, 0, 1069, 700))
         sizePolicy2.setHeightForWidth(self.scrollAreaWidgetContents_2.sizePolicy().hasHeightForWidth())
         self.scrollAreaWidgetContents_2.setSizePolicy(sizePolicy2)
-        self.scrollAreaWidgetContents_2.setMinimumSize(QSize(0, 1000))
+        self.scrollAreaWidgetContents_2.setMinimumSize(QSize(0, 700))
+
+        self.verticalLayout_9 = QVBoxLayout(self.scrollAreaWidgetContents_2)
+        self.verticalLayout_9.setObjectName(u"verticalLayout_9")
+        self.clfReportLabel = QLabel(self.scrollAreaWidgetContents_2)
+        self.clfReportLabel.setObjectName(u"clfReportLabel")
+        sizePolicy2.setHeightForWidth(self.clfReportLabel.sizePolicy().hasHeightForWidth())
+        self.clfReportLabel.setSizePolicy(sizePolicy2)
+        self.clfReportLabel.setMinimumSize(QSize(0, 10))
+        self.clfReportLabel.setFont(font)
+        self.clfReportLabel.setAutoFillBackground(False)
+
+        self.verticalLayout_9.addWidget(self.clfReportLabel)
+
         self.widgetStatistics = QWidget(self.scrollAreaWidgetContents_2)
         self.widgetStatistics.setObjectName(u"widgetStatistics")
-        self.widgetStatistics.setGeometry(QRect(10, 60, 1071, 381))
+        #self.widgetStatistics.setGeometry(QRect(10, 60, 1200, 500))
+
+        self.verticalLayout_9.addWidget(self.widgetStatistics)
+
+        self.scrollArea_2.setWidget(self.scrollAreaWidgetContents_2)
+
+
+
+        '''
+      
+        self.widgetStatistics = QWidget(self.scrollAreaWidgetContents_2)
+        self.widgetStatistics.setObjectName(u"widgetStatistics")
+        self.widgetStatistics.setGeometry(QRect(10, 60, 1200, 500))
         self.clfReportLabel = QLabel(self.scrollAreaWidgetContents_2)
         self.clfReportLabel.setObjectName(u"clfReportLabel")
         self.clfReportLabel.setGeometry(QRect(10, 10, 1047, 36))
@@ -274,6 +299,7 @@ class Ui_MainWindow(object):
         self.clfReportLabel.setAutoFillBackground(False)
         self.scrollArea_2.setWidget(self.scrollAreaWidgetContents_2)
 
+     '''
         self.verticalLayout_8.addWidget(self.scrollArea_2)
 
         self.stackedWidget.addWidget(self.page_3)
