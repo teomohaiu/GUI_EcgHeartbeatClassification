@@ -3,7 +3,7 @@ from matplotlib.pyplot import cm
 
 from Canvas import MplCanvas
 from KerasModel import Model
-
+from ProgressBar import ProgressBarMain
 
 class Prediction:
     def __init__(self, record_file='C:/Users/Teo/Desktop/Licenta/mit-bih-arrhythmia-database-1.0.0/100'
@@ -30,6 +30,9 @@ class Prediction:
         return sc
 
     def predictClick(self):
+        self.progressBar= ProgressBarMain()
+        self.progressBar.show()
+
         self.isPredicted = True
         predicted_classes, probabilities = self.keras_model.predict()
 
