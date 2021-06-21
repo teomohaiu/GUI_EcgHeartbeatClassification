@@ -5,7 +5,7 @@ import time
 
 from PyQt5 import QtCore, QtGui
 from PyQt5.QtCore import QPropertyAnimation, QThread, pyqtSlot
-from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QDialog, QFileDialog
+from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QDialog, QFileDialog, QMessageBox
 from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
 
 from KerasModel import Model
@@ -23,6 +23,7 @@ class MyMainWindow(QMainWindow):
         self.animation = None
         self.uploadedRecord = None
         self.uploadedAnnotation = None
+        self.firstOpenDialog = True
 
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
@@ -74,12 +75,6 @@ class MyMainWindow(QMainWindow):
         layoutStatistics.addWidget(statisticsPage.sc)
         self.ui.widgetStatistics.setLayout(layoutStatistics)
 
-    def progressBarAndPrediction(self):
-        self.progressBar = ProgressBarMain()
-        self.progressBar.show()
-        # time.sleep(10)
-        print(self.progressBar.isDone)
-
     def browseAnnotationClick(self):
         self.uploadedAnnotation, _ = QFileDialog.getOpenFileName(None, "Browse for annotations", "",
                                                                  " ATR Files (*.atr);;Text files (*.txt)")
@@ -95,23 +90,35 @@ class MyMainWindow(QMainWindow):
             self.ui_di.textEdit.setText(self.uploadedRecord)
 
     def uploadFileClick(self):
+        if self.uploadedRecord is not None and self.uploadedAnnotation is not None:
+            self.uploadedRecord = None
+            self.uploadedAnnotation = None
+            self.ui_di.textEdit.setText("")
+            self.ui_di.textEdit_2.setText("")
+
         self.Dialog.show()
         dialog_response = self.Dialog.exec_()
+
         if dialog_response == QDialog.Accepted:
             print('OK WAS PRESSED')
-            if self.uploadedRecord.endswith('.dat') and self.uploadedAnnotation.endswith('.atr'):
-                record = os.path.splitext(self.uploadedRecord)[0]
-                annotation = os.path.splitext(self.uploadedAnnotation)[0]
+            if self.uploadedRecord is None and self.uploadedAnnotation is None:
+                ret = QMessageBox.question(self, 'Allert', "You didn't select a signal!",
+                                           QMessageBox.Ok | QMessageBox.Cancel)
 
-                try:
-                    self.prediction_page.keras_model.read_signal(record, annotation)
-                    self.prediction_page.keras_model.preprocess()
-                    self.prediction_page.sc.axes.clear()
-                    print('Signal from main:', self.prediction_page.keras_model.signal)
-                    self.prediction_page.sc.axes.plot(self.prediction_page.keras_model.signal)
-                    self.prediction_page.sc.draw()
-                except AttributeError as e:
-                    print(e)
+            else:
+                if self.uploadedRecord.endswith('.dat') and self.uploadedAnnotation.endswith('.atr'):
+                    record = os.path.splitext(self.uploadedRecord)[0]
+                    annotation = os.path.splitext(self.uploadedAnnotation)[0]
+
+                    try:
+                        self.prediction_page.keras_model.read_signal(record, annotation)
+                        self.prediction_page.keras_model.preprocess()
+                        self.prediction_page.sc.axes.clear()
+                        print('Signal from main:', self.prediction_page.keras_model.signal)
+                        self.prediction_page.sc.axes.plot(self.prediction_page.keras_model.signal)
+                        self.prediction_page.sc.draw()
+                    except AttributeError as e:
+                        print(e)
 
         else:
             print("Cancel was pressed")

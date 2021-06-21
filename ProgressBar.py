@@ -17,7 +17,6 @@ class ProgressBarMain(QMainWindow):
         global counter
         counter = 0
 
-        # self.progressBarValue(50)
         self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
         self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
 
