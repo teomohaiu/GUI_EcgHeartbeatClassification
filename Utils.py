@@ -46,6 +46,29 @@ def segments(i, signal, ann_sample, ann_symbol):
     return start, end
 
 
+def segments_signals_txt(i, signal, ann_sample):
+    if i == 0:
+        next_beat = ann_sample[i + 1]
+        ecg_window = (next_beat - ann_sample[i]) // 2
+        start = 0
+        end = ann_sample[i] + ecg_window
+
+    elif i == ann_sample.size - 1:
+        previous_beat = ann_sample[i - 1]
+        ecg_window = (ann_sample[i] - previous_beat) // 2
+        start = ann_sample[i] - ecg_window
+        end = signal.shape[0]
+
+    else:
+        ecg_window_before = (ann_sample[i] - ann_sample[i - 1]) // 2
+        ecg_window_after = (ann_sample[i + 1] - ann_sample[i]) // 2
+        end = ann_sample[i] + ecg_window_after
+
+        start = ann_sample[i] - ecg_window_before
+
+    return start, end
+
+
 def define_sequence(signal, beat_location):
     ecg_segment_before = 179
     ecg_segment_after = 180
@@ -62,20 +85,6 @@ def define_sequence(signal, beat_location):
         sequence = signal[sequence_start:sequence_end]
 
     return sequence
-
-    '''
-      ecg_segment_before = 179
-    ecg_segment_after = 180
-    sequence_start = beat_location - ecg_segment_before
-    sequence_end = beat_location + ecg_segment_after + 1
-
-    if sequence_start >= 0 and sequence_end < signal.shape[0]:
-        sequence = signal[sequence_start:sequence_end]
-        return sequence
-    else:
-        return np.array([])
-
-    '''
 
 
 def butterworth_filter(signal, low_fs, high_fs, fs, order=2):

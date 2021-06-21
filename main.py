@@ -100,7 +100,6 @@ class MyMainWindow(QMainWindow):
         dialog_response = self.Dialog.exec_()
 
         if dialog_response == QDialog.Accepted:
-            print('OK WAS PRESSED')
             if self.uploadedRecord is None and self.uploadedAnnotation is None:
                 ret = QMessageBox.question(self, 'Allert', "You didn't select a signal!",
                                            QMessageBox.Ok | QMessageBox.Cancel)
@@ -109,7 +108,6 @@ class MyMainWindow(QMainWindow):
                 if self.uploadedRecord.endswith('.dat') and self.uploadedAnnotation.endswith('.atr'):
                     record = os.path.splitext(self.uploadedRecord)[0]
                     annotation = os.path.splitext(self.uploadedAnnotation)[0]
-
                     try:
                         self.prediction_page.keras_model.read_signal(record, annotation)
                         self.prediction_page.keras_model.preprocess()
@@ -119,6 +117,21 @@ class MyMainWindow(QMainWindow):
                         self.prediction_page.sc.draw()
                     except AttributeError as e:
                         print(e)
+
+                elif self.uploadedRecord.endswith('.txt') and self.uploadedAnnotation.endswith('.txt'):
+                    record = self.uploadedRecord
+                    annotation = self.uploadedAnnotation
+                    try:
+                        self.prediction_page.keras_model.read_signal_from_text_file(record, annotation)
+                        self.prediction_page.keras_model.preprocess()
+                        self.prediction_page.sc.axes.clear()
+                        print('Signal from main:', self.prediction_page.keras_model.signal)
+                        self.prediction_page.sc.axes.plot(self.prediction_page.keras_model.signal)
+                        self.prediction_page.sc.draw()
+                    except AttributeError as e:
+                        print(e)
+
+
 
         else:
             print("Cancel was pressed")

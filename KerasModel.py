@@ -7,7 +7,7 @@ from Utils import (define_sequence,
                    assign_labels_for_categories,
                    assign_labels_for_all_classes,
                    denoise, f1_score_m,
-                   segments)
+                   segments, segments_signals_txt)
 
 
 class Model:
@@ -68,6 +68,31 @@ class Model:
         for i in range(len(self.sequence_start)):
             print('start: {}, end:{}'.format(self.sequence_start[i], self.sequence_end[i]))
         print('Signal: ', self.signal)
+
+    def read_signal_from_text_file(self, record_file, annotation_file):
+        if type(self.X_test) is np.ndarray:
+            self.X_test = list()
+            self.y_class = list()
+            self.y_category = list()
+            self.sequence_start = list()
+            self.sequence_end = list()
+            self.beat_location = list()
+
+        try:
+            self.signal = np.loadtxt(record_file)
+            self.annotation_sample = np.loadtxt(annotation_file, dtype=int)
+        except Exception as e:
+            print(e)
+
+        for i in range(self.annotation_sample.size):
+            ecg_segment = define_sequence(self.signal, self.annotation_sample[i])
+            start, end = segments_signals_txt(i, self.signal, self.annotation_sample)
+
+            if ecg_segment.size > 0:
+                self.X_test.append(ecg_segment)
+                self.sequence_start.append(start)
+                self.sequence_end.append(end - 6)
+                self.beat_location.append(self.annotation_sample[i])
 
     def preprocess(self):
         self.X_test = tf.keras.preprocessing.sequence.pad_sequences(
