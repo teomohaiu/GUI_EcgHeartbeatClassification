@@ -3,6 +3,7 @@ from PyQt5.QtGui import QColor
 from ui_splash_screen import Ui_SplashScreen
 from PyQt5.QtWidgets import QApplication, QMainWindow, QGraphicsDropShadowEffect
 from PyQt5 import QtCore
+
 import sys
 
 counter = 0
@@ -13,8 +14,10 @@ class ProgressBarMain(QMainWindow):
         super(ProgressBarMain, self).__init__()
         self.ui = Ui_SplashScreen()
         self.ui.setupUi(self)
+        global counter
+        counter = 0
 
-        self.progressBarValue(50)
+        # self.progressBarValue(50)
         self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
         self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
 
@@ -38,10 +41,9 @@ class ProgressBarMain(QMainWindow):
         <p><span style=" font-size:60pt;">{VALUE}</span><span style=" font-size:45pt; vertical-align:super;">%</span></p>
         """
 
-        newHtml= htmlText.replace("{VALUE}", str(counter))
+        newHtml = htmlText.replace("{VALUE}", str(counter))
         self.ui.labelPercentage.setText(newHtml)
 
-        # CLOSE SPLASH SCREE AND OPEN APP
         if counter > 100:
             self.timer.stop()
             self.close()

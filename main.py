@@ -1,9 +1,10 @@
 import sys
 import os
 import numpy as np
+import time
 
 from PyQt5 import QtCore, QtGui
-from PyQt5.QtCore import QPropertyAnimation
+from PyQt5.QtCore import QPropertyAnimation, QThread, pyqtSlot
 from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QDialog, QFileDialog
 from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
 
@@ -13,6 +14,7 @@ from UiFunctions.DatasetPage import Dataset
 from UiFunctions.StatisticsPage import Statistics
 from ui_modified import Ui_MainWindow
 from ui_dialog import Ui_Dialog
+from ProgressBar import ProgressBarMain
 
 
 class MyMainWindow(QMainWindow):
@@ -46,6 +48,8 @@ class MyMainWindow(QMainWindow):
         layout.addWidget(self.prediction_page.sc)
         self.ui.showEcg.setLayout(layout)
         self.ui.predictBtn.clicked.connect(self.prediction_page.predictClick)
+        # self.ui.predictBtn.clicked.connect(self.progressBarAndPrediction)
+
         self.ui.uploadFileBtn.clicked.connect(self.uploadFileClick)
 
         #### Upload file dialog functions ####
@@ -69,6 +73,12 @@ class MyMainWindow(QMainWindow):
         layoutStatistics = QVBoxLayout()
         layoutStatistics.addWidget(statisticsPage.sc)
         self.ui.widgetStatistics.setLayout(layoutStatistics)
+
+    def progressBarAndPrediction(self):
+        self.progressBar = ProgressBarMain()
+        self.progressBar.show()
+        # time.sleep(10)
+        print(self.progressBar.isDone)
 
     def browseAnnotationClick(self):
         self.uploadedAnnotation, _ = QFileDialog.getOpenFileName(None, "Browse for annotations", "",

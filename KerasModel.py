@@ -33,11 +33,11 @@ class Model:
     def read_signal(self, record_file, annotation_file):
         if type(self.X_test) is np.ndarray:
             self.X_test = list()
-            self.y_class= list()
-            self.y_category= list()
-            self.sequence_start= list()
-            self.sequence_end= list()
-            self.beat_location= list()
+            self.y_class = list()
+            self.y_category = list()
+            self.sequence_start = list()
+            self.sequence_end = list()
+            self.beat_location = list()
 
         record = wfdb.rdrecord(record_file, sampto=2200)
         annotation = wfdb.rdann(annotation_file, 'atr', sampto=2200)
