@@ -101,35 +101,53 @@ class MyMainWindow(QMainWindow):
 
         if dialog_response == QDialog.Accepted:
             if self.uploadedRecord is None and self.uploadedAnnotation is None:
-                ret = QMessageBox.question(self, 'Allert', "You didn't select a signal!",
+                ret = QMessageBox.warning(self, 'Allert', "You didn't select a signal!",
                                            QMessageBox.Ok | QMessageBox.Cancel)
 
             else:
-                if self.uploadedRecord.endswith('.dat') and self.uploadedAnnotation.endswith('.atr'):
-                    record = os.path.splitext(self.uploadedRecord)[0]
-                    annotation = os.path.splitext(self.uploadedAnnotation)[0]
-                    try:
-                        self.prediction_page.keras_model.read_signal(record, annotation)
-                        self.prediction_page.keras_model.preprocess()
-                        self.prediction_page.sc.axes.clear()
-                        print('Signal from main:', self.prediction_page.keras_model.signal)
-                        self.prediction_page.sc.axes.plot(self.prediction_page.keras_model.signal)
-                        self.prediction_page.sc.draw()
-                    except AttributeError as e:
-                        print(e)
+                if self.uploadedAnnotation is not None:
+                    if self.uploadedRecord.endswith('.dat') and self.uploadedAnnotation.endswith('.atr'):
+                        record = os.path.splitext(self.uploadedRecord)[0]
+                        annotation = os.path.splitext(self.uploadedAnnotation)[0]
+                        try:
+                            self.prediction_page.keras_model.read_signal(record, annotation)
+                            self.prediction_page.keras_model.preprocess()
+                            self.prediction_page.sc.axes.clear()
+                            print('Signal from main:', self.prediction_page.keras_model.signal)
+                            self.prediction_page.sc.axes.plot(self.prediction_page.keras_model.signal)
+                            self.prediction_page.sc.draw()
+                        except AttributeError as e:
+                            print(e)
 
-                elif self.uploadedRecord.endswith('.txt') and self.uploadedAnnotation.endswith('.txt'):
-                    record = self.uploadedRecord
-                    annotation = self.uploadedAnnotation
-                    try:
-                        self.prediction_page.keras_model.read_signal_from_text_file(record, annotation)
-                        self.prediction_page.keras_model.preprocess()
-                        self.prediction_page.sc.axes.clear()
-                        print('Signal from main:', self.prediction_page.keras_model.signal)
-                        self.prediction_page.sc.axes.plot(self.prediction_page.keras_model.signal)
-                        self.prediction_page.sc.draw()
-                    except AttributeError as e:
-                        print(e)
+                    elif self.uploadedRecord.endswith('.txt') and self.uploadedAnnotation.endswith('.txt'):
+                        record = self.uploadedRecord
+                        annotation = self.uploadedAnnotation
+                        try:
+                            self.prediction_page.keras_model.read_signal_from_text_file(record, annotation)
+                            self.prediction_page.keras_model.preprocess()
+                            self.prediction_page.sc.axes.clear()
+                            print('Signal from main:', self.prediction_page.keras_model.signal)
+                            self.prediction_page.sc.axes.plot(self.prediction_page.keras_model.signal)
+                            self.prediction_page.sc.draw()
+                        except AttributeError as e:
+                            print(e)
+                else:
+                    if self.uploadedRecord.endswith('.txt'):
+                        record = self.uploadedRecord
+                        annotation = self.uploadedAnnotation
+                        try:
+                            self.prediction_page.keras_model.read_signal_from_text_file(record, annotation)
+                            self.prediction_page.keras_model.preprocess()
+                            self.prediction_page.sc.axes.clear()
+                            print('Signal from main:', self.prediction_page.keras_model.signal)
+                            self.prediction_page.sc.axes.plot(self.prediction_page.keras_model.signal)
+                            self.prediction_page.sc.draw()
+                        except AttributeError as e:
+                            print(e)
+                    elif self.uploadedRecord.endswith('.dat'):
+                        ret = QMessageBox.warning(self, 'Allert', "You must provide an annotation for .dat files!",
+                                                   QMessageBox.Ok)
+
 
 
 

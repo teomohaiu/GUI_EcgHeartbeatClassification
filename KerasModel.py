@@ -8,6 +8,7 @@ from Utils import (define_sequence,
                    assign_labels_for_all_classes,
                    denoise, f1_score_m,
                    segments, segments_signals_txt)
+from scipy.signal import find_peaks
 
 
 class Model:
@@ -80,7 +81,11 @@ class Model:
 
         try:
             self.signal = np.loadtxt(record_file)
-            self.annotation_sample = np.loadtxt(annotation_file, dtype=int)
+            if annotation_file is not None:
+                self.annotation_sample = np.loadtxt(annotation_file, dtype=int)
+            else:
+                peaks = find_peaks(self.signal, height=0.4)
+                self.annotation_sample = peaks[0]
         except Exception as e:
             print(e)
 
