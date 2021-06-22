@@ -1,20 +1,16 @@
-import sys
 import os
-import numpy as np
-import time
+import sys
 
 from PyQt5 import QtCore, QtGui
-from PyQt5.QtCore import QPropertyAnimation, QThread, pyqtSlot
+from PyQt5.QtCore import QPropertyAnimation
 from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QDialog, QFileDialog, QMessageBox
 from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
 
-from KerasModel import Model
-from UiFunctions.PredictionPage import Prediction
 from UiFunctions.DatasetPage import Dataset
+from UiFunctions.PredictionPage import Prediction
 from UiFunctions.StatisticsPage import Statistics
-from ui_modified import Ui_MainWindow
 from ui_dialog import Ui_Dialog
-from ProgressBar import ProgressBarMain
+from ui_modified import Ui_MainWindow
 
 
 class MyMainWindow(QMainWindow):

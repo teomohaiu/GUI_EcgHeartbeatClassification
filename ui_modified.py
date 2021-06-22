@@ -1,4 +1,4 @@
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtCore import QSize, QRect
 from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import QSpacerItem, QSizePolicy, QWidget, QHBoxLayout, QPushButton, QScrollArea, QVBoxLayout, \

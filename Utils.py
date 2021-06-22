@@ -1,5 +1,4 @@
 from scipy.signal import butter, filtfilt
-import numpy as np
 from tensorflow.keras import backend as K
 
 
