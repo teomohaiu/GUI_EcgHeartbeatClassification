@@ -57,14 +57,7 @@ class Dataset:
             ax.plot(examples[i], color=colors[i])
             ax.set_xlabel(class_names[i], color='white', fontsize=9)
             ax.xaxis.set_label_coords(0.5, -0.025)
-            # ax.set(facecolor='#333333')
-            # ax.set(facecolor='black')
-            '''
-            ax.spines["bottom"].set_color("white")
-            ax.spines["left"].set_color("white")
-            ax.spines["right"].set_color("white")
-            ax.spines["top"].set_color("white")
-            '''
+
             ax.set_xticks([])
             ax.set_yticks([])
 
@@ -90,19 +83,3 @@ class Dataset:
 
         return sc
 
-    def example_seaborn(self):
-        sc = SeabornCanvas(self, width=5, height=5)
-        Mydict = {'Province': ['Alberta', 'British Columbia', 'Manitoba', 'New Brunswick', 'Newfoundland & Labrador',
-                               'Northwest Territories', 'Nova Scotia', 'Nunavut', 'Ontario', 'Prince Edward Island',
-                               'Quebec', 'Saskatchewan', 'Yukon'],
-                  'Province_Code': ['AB', 'BC', 'MB', 'NB', 'NL', 'NT', 'NS', 'NU', 'ON', 'PE', 'QC', 'SK', 'YT'],
-                  'Minimum_Wage': ['15.00', '14.60', '11.65', '11.70', '11.65', '13.46', '12.55', '13.00', '14.00',
-                                   '12.85', '13.10', '11.32', '13.71']}
-        df = pd.DataFrame(Mydict)
-        # change the datatype of minimum wage from object to float
-        df['Minimum_Wage'] = df['Minimum_Wage'].astype(str).astype(float)
-        print(df.dtypes)
-        sns.barplot(x='Province_Code', y='Minimum_Wage', data=df, ci=95, ax=sc.ax, palette='plasma')
-        sc.ax.set_title('Minimum Wage Comparison across Canada')
-
-        return sc

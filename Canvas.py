@@ -6,6 +6,14 @@ import matplotlib.gridspec as gridspec
 
 class MplCanvas(FigureCanvas):
     def __init__(self, parent=None, width=5, height=4, dpi=100):
+        """
+        This function initialize a FigureCanvas so it can be compatible with matplotlib figure.
+
+        :param parent: specify the parent widget if it exists
+        :param width: the width of the figure
+        :param height: the height of the figure
+        :param dpi: dots per inch - clarity of the figure
+        """
         fig = Figure(figsize=(width, height), dpi=dpi)
         fig.tight_layout()
         fig.patch.set_facecolor("black")
@@ -15,6 +23,15 @@ class MplCanvas(FigureCanvas):
 
 class MultipleSubplotsCanvas(FigureCanvas):
     def __init__(self, parent=None, width=5, height=4, dpi=100):
+        """
+        This function initialize a FigureCanvas suitable for displaying a figure on a widget,
+        and adds two subplots on a figure.
+
+        :param parent: specify the parent widget if it exists
+        :param width: the width of the figure
+        :param height: the height of the figure
+        :param dpi: dots per inch - clarity of the figure
+        """
         fig = Figure(figsize=(width, height), dpi=dpi)
         fig.tight_layout()
         fig.patch.set_facecolor("black")
@@ -25,6 +42,15 @@ class MultipleSubplotsCanvas(FigureCanvas):
 
 class AllClassesCanvas(FigureCanvas):
     def __init__(self, parent=None, width=5, height=4, dpi=100):
+        """
+        This function initialize a figure with no subplots for displaying all classes
+        on the dataset page.
+
+        :param parent: specify the parent widget if it exists
+        :param width: the width of the figure
+        :param height: the height of the figure
+        :param dpi: dots per inch - clarity of the figure
+        """
         fig = Figure(figsize=(width, height), dpi=dpi)
         fig.tight_layout()
         fig.patch.set_facecolor("black")
@@ -33,6 +59,15 @@ class AllClassesCanvas(FigureCanvas):
 
 class GeneratedSamplesCanvas(FigureCanvas):
     def __init__(self, parent=None, width=5, height=4, dpi=100):
+        """
+        This function initialize a figure with 6 subplots for displaying the real
+        and generated signals on the ui.
+
+        :param parent: specify the parent widget if it exists
+        :param width: the width of the figure
+        :param height: the height of the figure
+        :param dpi: dots per inch - clarity of the figure
+        """
         fig = Figure(figsize=(width, height), dpi=dpi)
         fig.tight_layout()
         fig.patch.set_facecolor("black")
@@ -48,6 +83,15 @@ class GeneratedSamplesCanvas(FigureCanvas):
 
 class SeabornCanvas(FigureCanvas):
     def __init__(self, parent=None, width=5, height=4, dpi=100):
+        """
+        This functions initialize a figure and is used for displaying the seaborn
+        figure on the statistics page.
+
+        :param parent: specify the parent widget if it exists
+        :param width: the width of the figure
+        :param height: the height of the figure
+        :param dpi: dots per inch - clarity of the figure
+        """
         fig, self.ax = plt.subplots(figsize=(width, height))
         fig.tight_layout()
         fig.patch.set_facecolor("dimgray")

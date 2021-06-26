@@ -72,6 +72,12 @@ class MyMainWindow(QMainWindow):
         self.ui.widgetStatistics.setLayout(layoutStatistics)
 
     def browseAnnotationClick(self):
+        """
+        This function opens the QFileDialog for browsing an annotation from computer.
+
+        :return: Sets the textEdit with the name of annotation path and initialize the
+        self.uploadedAnnotation member
+        """
         self.uploadedAnnotation, _ = QFileDialog.getOpenFileName(None, "Browse for annotations", "",
                                                                  " ATR Files (*.atr);;Text files (*.txt)")
         if self.uploadedAnnotation:
@@ -79,6 +85,12 @@ class MyMainWindow(QMainWindow):
             self.ui_di.textEdit_2.setText(self.uploadedAnnotation)
 
     def browseFileClick(self):
+        """
+        This function opens the QFileDialog for browsing an ecg file from computer.
+
+        :return: Sets the textEdit with the name of the signal path and initialize the
+        self.uploadedRecord member
+        """
         self.uploadedRecord, _ = QFileDialog.getOpenFileName(None, "Browse for ecg files", "", "Data files(*.dat);; "
                                                                                                "Text files (*.txt)")
         if self.uploadedRecord:
@@ -86,6 +98,12 @@ class MyMainWindow(QMainWindow):
             self.ui_di.textEdit.setText(self.uploadedRecord)
 
     def uploadFileClick(self):
+        """
+        This function is called when the user clicks on the upload button.
+        It opens a dialog and interpret the response of the dialog.
+        :return: The new signal if it is correctly loaded, or an messageBox if something
+        went wrong.
+        """
         if self.uploadedRecord is not None and self.uploadedAnnotation is not None:
             self.uploadedRecord = None
             self.uploadedAnnotation = None
@@ -143,9 +161,6 @@ class MyMainWindow(QMainWindow):
                     elif self.uploadedRecord.endswith('.dat'):
                         ret = QMessageBox.warning(self, 'Allert', "You must provide an annotation for .dat files!",
                                                   QMessageBox.Ok)
-
-
-
 
         else:
             print("Cancel was pressed")

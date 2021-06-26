@@ -32,6 +32,12 @@ class ProgressBarMain(QMainWindow):
         self.ui.circularBg.setGraphicsEffect(self.shadow)
 
     def progress(self):
+        """
+        This function takes the global counter and updates the html for the progress label and also
+        updates the progressbar circle every second.
+
+        :return: The modified progress bar.
+        """
         global counter
         value = counter
 
@@ -53,6 +59,14 @@ class ProgressBarMain(QMainWindow):
         counter += 1
 
     def progressBarValue(self, value):
+        """
+        This function takes the counter as a parameter and applies a new stylesheet
+        to the progress bar.
+
+        :param value: the global value that shows the progress
+        :return:
+        """
+
         stylesheet = """QFrame{ border-radius: 150px; background-color: qconicalgradient(cx:0.5, cy:0.5, angle:90, 
         stop:{STOP_1} rgba(255, 0, 127, 0), stop:{STOP_2} rgba(117, 255, 255,255)); } 
         """

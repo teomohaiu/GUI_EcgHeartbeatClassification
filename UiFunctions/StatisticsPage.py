@@ -13,14 +13,18 @@ class Statistics:
         self.sc = self.plot()
 
     def plot(self):
+        """
+        This function plots the seaborn heatmap that represents the classification
+        report of the 15 classes.
+
+        :return: figure with the classification report
+        """
         sc = SeabornCanvas(self, 3, 4, 100)
         smote_15_classes = pickle.load(open('SerializedObjects/statistics/smote_15_classes.pkl', 'rb'))
         sns.heatmap(pd.DataFrame(smote_15_classes).iloc[:-1, :].T, annot=True, ax=sc.ax)
         sc.ax.tick_params(which='both', labelsize=12)
 
         return sc
-
-
 
     def plot_statistics(self):
         sc = MultipleSubplotsCanvas(self, 4, 3, 100)

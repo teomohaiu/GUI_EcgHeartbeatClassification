@@ -17,6 +17,12 @@ class Prediction:
         self.sc = self.plot_ecg(self.keras_model.signal)
 
     def plot_ecg(self, signal):
+        """
+        This function takes the signal as the parameter and plots it on the canvas.
+
+        :param signal: An array with the ecg signal.
+        :return: Returns sc, the figure that contains the signal
+        """
         sc = MplCanvas(self, width=4, height=4, dpi=100)
         sc.axes.plot(signal, color='teal')
         sc.axes.set(facecolor="black")
@@ -31,6 +37,14 @@ class Prediction:
         return sc
 
     def predictClick(self):
+        """
+        This function makes the prediction on the loaded signal calling the predict method
+        from KerasModel class. Than the predicted class names and probabilities are displayed
+        on the figure at the location of the R-peaks.
+        It also calls the progressbar window at the beginning of the execution.
+
+        :return: The modified figure with the predictions.
+        """
         self.progressBar = ProgressBarMain()
         self.progressBar.show()
 

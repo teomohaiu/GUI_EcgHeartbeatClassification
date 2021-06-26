@@ -32,6 +32,15 @@ class Model:
         # self.preprocess()
 
     def read_signal(self, record_file, annotation_file):
+        """
+        This function reads a signal and initialize the objects of the class
+        with the corresponding values. It is used for reading the .dat files and .atr
+        annotations.
+
+        :param record_file: the string that represents the record file of the signal
+        :param annotation_file: the string that represents the annotation file for the signal
+        :return: a signal that is read
+        """
         if type(self.X_test) is np.ndarray:
             self.X_test = list()
             self.y_class = list()
@@ -71,6 +80,16 @@ class Model:
         print('Signal: ', self.signal)
 
     def read_signal_from_text_file(self, record_file, annotation_file):
+        """
+       This function reads a signal and initialize the objects of the class
+        with the corresponding values. It is used for reading the .txt files.
+        If it isn't provided an annotation file, than the R-peaks of the signals
+        are detected automatically.
+
+        :param record_file: the string that represents the record file of the signal
+        :param annotation_file: the string that represents the annotation file for the signal
+        :return: a signal that is read
+        """
         if type(self.X_test) is np.ndarray:
             self.X_test = list()
             self.y_class = list()
@@ -100,6 +119,13 @@ class Model:
                 self.beat_location.append(self.annotation_sample[i])
 
     def preprocess(self):
+        """
+        This function apply the preprocessing steps for the signal before training.
+        In this function the following operations are applied to the signal: denoising
+        and standardization.
+
+        :return: the preprocessed signal
+        """
         self.X_test = tf.keras.preprocessing.sequence.pad_sequences(
             self.X_test, maxlen=360, dtype='float32', padding='pre',
             truncating='pre', value=0.0
@@ -109,6 +135,11 @@ class Model:
         self.X_test = scaler.fit_transform(self.X_test)
 
     def predict(self):
+        """
+        This functions calls the keras function predict on the serialized model.
+
+        :return: The predictions with the classes of the heartbeats.
+        """
         model = tf.keras.models.load_model('model-end-to-end-fold-4', custom_objects={'f1_score_m': f1_score_m})
         predictions = model.predict(self.X_test)
         predicted_labels = np.argmax(predictions, axis=-1)
@@ -118,6 +149,13 @@ class Model:
         return predicted_classes, probabilities
 
     def showPredictionsPercentages(self, predicted_labels, predictions_array):
+        """
+        This functions calculates the overall accuracy of the prediction and displays details
+        in the console.
+        :param predicted_labels:  the labels of the prediction in integer values (0,...,14)
+        :param predictions_array: the array with all predictions
+        :return:
+        """
         accuracy_per_total = list()
         predicted_classes = list()
         probabilities = list()
