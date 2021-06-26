@@ -46,8 +46,9 @@ class GeneratedSamplesCanvas(FigureCanvas):
         super(GeneratedSamplesCanvas, self).__init__(fig)
 
 
-
 class SeabornCanvas(FigureCanvas):
     def __init__(self, parent=None, width=5, height=4, dpi=100):
         fig, self.ax = plt.subplots(figsize=(width, height))
+        fig.tight_layout()
+        fig.patch.set_facecolor("gray")
         super(SeabornCanvas, self).__init__(fig)

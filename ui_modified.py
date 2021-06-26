@@ -271,7 +271,6 @@ class Ui_MainWindow(object):
         self.clfReportLabel.setMinimumSize(QSize(0, 10))
         self.clfReportLabel.setFont(font)
         self.clfReportLabel.setAutoFillBackground(False)
-
         self.verticalLayout_9.addWidget(self.clfReportLabel)
 
         self.widgetStatistics = QWidget(self.scrollAreaWidgetContents_2)
@@ -283,23 +282,6 @@ class Ui_MainWindow(object):
         self.scrollArea_2.setWidget(self.scrollAreaWidgetContents_2)
 
 
-
-        '''
-      
-        self.widgetStatistics = QWidget(self.scrollAreaWidgetContents_2)
-        self.widgetStatistics.setObjectName(u"widgetStatistics")
-        self.widgetStatistics.setGeometry(QRect(10, 60, 1200, 500))
-        self.clfReportLabel = QLabel(self.scrollAreaWidgetContents_2)
-        self.clfReportLabel.setObjectName(u"clfReportLabel")
-        self.clfReportLabel.setGeometry(QRect(10, 10, 1047, 36))
-        sizePolicy2.setHeightForWidth(self.clfReportLabel.sizePolicy().hasHeightForWidth())
-        self.clfReportLabel.setSizePolicy(sizePolicy2)
-        self.clfReportLabel.setMinimumSize(QSize(0, 10))
-        self.clfReportLabel.setFont(font)
-        self.clfReportLabel.setAutoFillBackground(False)
-        self.scrollArea_2.setWidget(self.scrollAreaWidgetContents_2)
-
-     '''
         self.verticalLayout_8.addWidget(self.scrollArea_2)
 
         self.stackedWidget.addWidget(self.page_3)
@@ -323,6 +305,6 @@ class Ui_MainWindow(object):
         self.uploadFileBtn.setText(_translate("MainWindow", "Upload file"))
         self.textLabelClass.setText(_translate("MainWindow", u"Class representation", None))
         self.textLabelSMOTE.setText(_translate("MainWindow", u"SMOTE generated examples", None))
-        self.clfReportLabel.setText(_translate("MainWindow", u"Classification report", None))
+        self.clfReportLabel.setText(_translate("MainWindow", u"Classification report 15 classes", None))
 
 

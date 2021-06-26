@@ -1,12 +1,21 @@
-from Canvas import MplCanvas, MultipleSubplotsCanvas
-import seaborn as sns
-import pandas as pd
 import pickle
+
+import pandas as pd
+import seaborn as sns
+
+from Canvas import MultipleSubplotsCanvas, SeabornCanvas
 
 
 class Statistics:
     def __init__(self):
-        self.sc = self.plot_statistics()
+        self.sc = self.plot()
+
+    def plot(self):
+        sc = SeabornCanvas(self, 3, 4, 100)
+        smote_15_classes = pickle.load(open('SerializedObjects/statistics/smote_15_classes.pkl', 'rb'))
+        sns.heatmap(pd.DataFrame(smote_15_classes).iloc[:-1, :].T, annot=True, ax=sc.ax)
+
+        return sc
 
     def plot_statistics(self):
         sc = MultipleSubplotsCanvas(self, 4, 3, 100)
@@ -14,6 +23,7 @@ class Statistics:
         smote_15_classes = pickle.load(open('SerializedObjects/statistics/smote_15_classes.pkl', 'rb'))
         smote_5_categories = pd.DataFrame(smote_5_categories)
         smote_15_classes = pd.DataFrame(smote_15_classes)
+        # sns.heatmap(smote_15_classes.iloc[:-1,:].T, annot=True, ax=sc.ax1)
         sns.heatmap(smote_15_classes.iloc[:-1, :].T, annot=True, ax=sc.ax1, vmin=0, vmax=1.0, fmt='0.2f', cbar=False,
                     annot_kws={"size": 14})
         sc.ax1.tick_params(colors='white', which='both', labelsize=9)
