@@ -2,8 +2,10 @@ import pickle
 
 import pandas as pd
 import seaborn as sns
+import numpy as np
 
 from Canvas import MultipleSubplotsCanvas, SeabornCanvas
+from mlxtend.plotting import plot_confusion_matrix
 
 
 class Statistics:
@@ -14,8 +16,11 @@ class Statistics:
         sc = SeabornCanvas(self, 3, 4, 100)
         smote_15_classes = pickle.load(open('SerializedObjects/statistics/smote_15_classes.pkl', 'rb'))
         sns.heatmap(pd.DataFrame(smote_15_classes).iloc[:-1, :].T, annot=True, ax=sc.ax)
+        sc.ax.tick_params(which='both', labelsize=12)
 
         return sc
+
+
 
     def plot_statistics(self):
         sc = MultipleSubplotsCanvas(self, 4, 3, 100)

@@ -1,6 +1,6 @@
 from PyQt5 import QtCore, QtWidgets
-from PyQt5.QtCore import QSize, QRect
-from PyQt5.QtGui import QFont
+from PyQt5.QtCore import QSize, QRect, Qt
+from PyQt5.QtGui import QFont, QPixmap
 from PyQt5.QtWidgets import QSpacerItem, QSizePolicy, QWidget, QHBoxLayout, QPushButton, QScrollArea, QVBoxLayout, \
     QLabel, QFrame
 
@@ -130,11 +130,11 @@ class Ui_MainWindow(object):
         sizePolicy1.setHeightForWidth(self.uploadFileBtn.sizePolicy().hasHeightForWidth())
         self.uploadFileBtn.setSizePolicy(sizePolicy1)
         self.uploadFileBtn.setStyleSheet("QPushButton\n"
-            "{\n"
-            "    height: 20px; \n"
-            "    width: 100px; \n"
-            "    min-width: 40px;\n"
-            "}\n")
+                                         "{\n"
+                                         "    height: 20px; \n"
+                                         "    width: 100px; \n"
+                                         "    min-width: 40px;\n"
+                                         "}\n")
 
         self.horizontalLayout_5.addWidget(self.uploadFileBtn)
 
@@ -146,7 +146,6 @@ class Ui_MainWindow(object):
         self.showEcg.setSizePolicy(sizePolicy)
 
         self.verticalLayout_7.addWidget(self.showEcg)
-
 
         self.horizontalSpacer_4 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
@@ -176,7 +175,6 @@ class Ui_MainWindow(object):
         spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_3.addItem(spacerItem1)
         self.verticalLayout_7.addLayout(self.horizontalLayout_3)
-
 
         self.stackedWidget.addWidget(self.page_1)
         self.page_2 = QtWidgets.QWidget()
@@ -245,7 +243,6 @@ class Ui_MainWindow(object):
         self.verticalLayout_6.addWidget(self.scrollArea)
         self.stackedWidget.addWidget(self.page_2)
 
-
         self.page_3 = QtWidgets.QWidget()
         self.page_3.setObjectName("page_3")
         self.verticalLayout_8 = QtWidgets.QVBoxLayout(self.page_3)
@@ -257,10 +254,10 @@ class Ui_MainWindow(object):
         self.scrollArea_2.setWidgetResizable(True)
         self.scrollAreaWidgetContents_2 = QWidget()
         self.scrollAreaWidgetContents_2.setObjectName(u"scrollAreaWidgetContents_2")
-        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, 0, 1069, 700))
+        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, 0, 1069, 1200))
         sizePolicy2.setHeightForWidth(self.scrollAreaWidgetContents_2.sizePolicy().hasHeightForWidth())
         self.scrollAreaWidgetContents_2.setSizePolicy(sizePolicy2)
-        self.scrollAreaWidgetContents_2.setMinimumSize(QSize(0, 700))
+        self.scrollAreaWidgetContents_2.setMinimumSize(QSize(0, 1200))
 
         self.verticalLayout_9 = QVBoxLayout(self.scrollAreaWidgetContents_2)
         self.verticalLayout_9.setObjectName(u"verticalLayout_9")
@@ -275,12 +272,27 @@ class Ui_MainWindow(object):
 
         self.widgetStatistics = QWidget(self.scrollAreaWidgetContents_2)
         self.widgetStatistics.setObjectName(u"widgetStatistics")
-        #self.widgetStatistics.setGeometry(QRect(10, 60, 1200, 500))
+        # self.widgetStatistics.setGeometry(QRect(10, 60, 1200, 500))
 
         self.verticalLayout_9.addWidget(self.widgetStatistics)
 
-        self.scrollArea_2.setWidget(self.scrollAreaWidgetContents_2)
+        self.confusionMatrixLabel = QLabel(self.scrollAreaWidgetContents_2)
+        self.confusionMatrixLabel.setObjectName(u"confusionMatrixLabel")
+        sizePolicy2.setHeightForWidth(self.confusionMatrixLabel.sizePolicy().hasHeightForWidth())
+        self.confusionMatrixLabel.setSizePolicy(sizePolicy2)
+        self.confusionMatrixLabel.setMinimumSize(QSize(0, 10))
+        self.confusionMatrixLabel.setFont(font)
+        self.confusionMatrixLabel.setAutoFillBackground(False)
+        self.verticalLayout_9.addWidget(self.confusionMatrixLabel)
 
+        self.confusionMatrixPicture = QLabel(self.scrollAreaWidgetContents_2)
+        self.confusionMatrixPicture.setObjectName(u"confMatrixPicture")
+        pixmap = QPixmap('icons/confusion-matrix.png')
+        self.confusionMatrixPicture.setPixmap(pixmap)
+        self.confusionMatrixPicture.setAlignment(Qt.AlignCenter)
+        self.verticalLayout_9.addWidget(self.confusionMatrixPicture)
+
+        self.scrollArea_2.setWidget(self.scrollAreaWidgetContents_2)
 
         self.verticalLayout_8.addWidget(self.scrollArea_2)
 
@@ -306,5 +318,4 @@ class Ui_MainWindow(object):
         self.textLabelClass.setText(_translate("MainWindow", u"Class representation", None))
         self.textLabelSMOTE.setText(_translate("MainWindow", u"SMOTE generated examples", None))
         self.clfReportLabel.setText(_translate("MainWindow", u"Classification report 15 classes", None))
-
-
+        self.confusionMatrixLabel.setText(_translate("MainWindow", u"Confusion matrix", None))

@@ -98,7 +98,7 @@ class MyMainWindow(QMainWindow):
         if dialog_response == QDialog.Accepted:
             if self.uploadedRecord is None and self.uploadedAnnotation is None:
                 ret = QMessageBox.warning(self, 'Allert', "You didn't select a signal!",
-                                           QMessageBox.Ok | QMessageBox.Cancel)
+                                          QMessageBox.Ok | QMessageBox.Cancel)
 
             else:
                 if self.uploadedAnnotation is not None:
@@ -142,7 +142,7 @@ class MyMainWindow(QMainWindow):
                             print(e)
                     elif self.uploadedRecord.endswith('.dat'):
                         ret = QMessageBox.warning(self, 'Allert', "You must provide an annotation for .dat files!",
-                                                   QMessageBox.Ok)
+                                                  QMessageBox.Ok)
 
 
 
