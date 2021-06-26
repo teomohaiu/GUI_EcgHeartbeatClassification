@@ -318,4 +318,4 @@ class Ui_MainWindow(object):
         self.textLabelClass.setText(_translate("MainWindow", u"Class representation", None))
         self.textLabelSMOTE.setText(_translate("MainWindow", u"SMOTE generated examples", None))
         self.clfReportLabel.setText(_translate("MainWindow", u"Classification report 15 classes", None))
-        self.confusionMatrixLabel.setText(_translate("MainWindow", u"Confusion matrix", None))
+        self.confusionMatrixLabel.setText(_translate("MainWindow", u"Confusion matrix 5 categories", None))

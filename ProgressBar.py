@@ -33,15 +33,18 @@ class ProgressBarMain(QMainWindow):
 
     def progress(self):
         global counter
-
-        self.progressBarValue(counter)
+        value = counter
 
         htmlText = """
         <p><span style=" font-size:60pt;">{VALUE}</span><span style=" font-size:45pt; vertical-align:super;">%</span></p>
         """
 
-        newHtml = htmlText.replace("{VALUE}", str(counter))
+        newHtml = htmlText.replace("{VALUE}", str(int(value)))
         self.ui.labelPercentage.setText(newHtml)
+
+        if value > 100:
+            value = 1.000
+        self.progressBarValue(value)
 
         if counter > 100:
             self.timer.stop()
